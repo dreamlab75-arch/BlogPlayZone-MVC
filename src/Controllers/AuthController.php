@@ -1,5 +1,5 @@
 <?php
-
+// AuthController.php
 namespace App\Controllers;
 
 use App\Core\{Auth, Router, View};
@@ -8,14 +8,12 @@ use App\Models\Usuario;
 
 class AuthController
 {
-    // GET /auth/login
     public function loginForm(): void
     {
         if (Auth::check()) Router::redirect('/');
         View::render('auth/login');
     }
 
-    // POST /auth/login
     public function login(): void
     {
         $login = trim($_POST['login'] ?? '');
@@ -35,14 +33,12 @@ class AuthController
         Router::redirect('/');
     }
 
-    // GET /auth/cadastro
     public function cadastroForm(): void
     {
         if (Auth::check()) Router::redirect('/');
         View::render('auth/cadastro');
     }
 
-    // POST /auth/cadastro
     public function cadastro(): void
     {
         $nome  = trim($_POST['nome']  ?? '');
@@ -65,8 +61,7 @@ class AuthController
         try {
             $usuarioId = Usuario::criar($nome, $email, hash('sha256', $senha));
 
-            $pasta  = dirname(__DIR__, 2) . '/public/uploads/avatares';
-            $avatar = Upload::salvar('avatar', 'avatar', $usuarioId, $pasta);
+            $avatar = Upload::salvar('avatar', 'avatar', $usuarioId, 'avatares');
             if ($avatar) Usuario::atualizarAvatar($usuarioId, $avatar);
 
             Router::redirect('/auth/login?sucesso=' . urlencode('Cadastro realizado! Faça seu login.'));
@@ -75,7 +70,6 @@ class AuthController
         }
     }
 
-    // GET /auth/logout
     public function logout(): void
     {
         Auth::logout();

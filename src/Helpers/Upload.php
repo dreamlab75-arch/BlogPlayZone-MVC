@@ -34,15 +34,26 @@ class Upload
     }
 
     /**
-     * Salva arquivo de imagem enviado via $_FILES.
-     *
-     * @param  string $campo        Nome do campo em $_FILES
-     * @param  string $prefixo      Ex: 'post', 'noticia', 'avatar'
-     * @param  int    $id           ID do registro
-     * @param  string $pasta        Caminho absoluto da pasta de destino
-     * @return string|null          Path relativo à raiz do projeto, ou null se sem upload
+     * Retorna o caminho absoluto da pasta public/ do projeto.
+     * Funciona independente de onde o script está sendo chamado.
      */
-    public static function salvar(string $campo, string $prefixo, int $id, string $pasta): ?string
+    public static function publicPath(): string
+    {
+        // __DIR__ = src/Helpers/
+        // sobe 2 níveis: src/ -> raiz do projeto -> entra em public/
+        return dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'public';
+    }
+
+    /**
+     * Salva um arquivo de imagem enviado via $_FILES.
+     *
+     * @param  string $campo    Nome do campo em $_FILES
+     * @param  string $prefixo  Ex: 'post', 'noticia', 'avatar'
+     * @param  int    $id       ID do registro
+     * @param  string $subpasta Ex: 'posts', 'noticias', 'avatares'
+     * @return string|null      Path relativo salvo no banco (ex: uploads/posts/post_1.jpg)
+     */
+    public static function salvar(string $campo, string $prefixo, int $id, string $subpasta): ?string
     {
         if (!isset($_FILES[$campo]) || $_FILES[$campo]['error'] === UPLOAD_ERR_NO_FILE) {
             return null;
@@ -54,6 +65,7 @@ class Upload
             throw new \RuntimeException('Erro no upload (código ' . $file['error'] . ').');
         }
 
+        // Verifica MIME real
         $mimePermitidos = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
         $finfo = new \finfo(FILEINFO_MIME_TYPE);
         $mime  = $finfo->file($file['tmp_name']);
@@ -62,27 +74,38 @@ class Upload
             throw new \RuntimeException('Formato não permitido. Use JPG, PNG, WEBP ou GIF.');
         }
 
-        $extensoes    = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp', 'image/gif' => 'gif'];
-        $ext          = $extensoes[$mime];
-        $nomeArquivo  = "{$prefixo}_{$id}.{$ext}";
-        $destino      = rtrim($pasta, '/') . '/' . $nomeArquivo;
+        $extensoes   = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp', 'image/gif' => 'gif'];
+        $ext         = $extensoes[$mime];
+        $nomeArquivo = "{$prefixo}_{$id}.{$ext}";
 
-        // Apaga versão anterior (qualquer extensão)
+        // Pasta absoluta: public/uploads/posts/
+        $pastaAbs = self::publicPath() . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . $subpasta;
+
+        // Cria a pasta se não existir
+        if (!is_dir($pastaAbs)) {
+            if (!mkdir($pastaAbs, 0755, true)) {
+                throw new \RuntimeException("Não foi possível criar a pasta de upload: {$pastaAbs}");
+            }
+        }
+
+        $destino = $pastaAbs . DIRECTORY_SEPARATOR . $nomeArquivo;
+
+        // Apaga versão anterior do mesmo ID (qualquer extensão)
         foreach ($extensoes as $e) {
-            $antigo = rtrim($pasta, '/') . "/{$prefixo}_{$id}.{$e}";
+            $antigo = $pastaAbs . DIRECTORY_SEPARATOR . "{$prefixo}_{$id}.{$e}";
             if (file_exists($antigo)) {
                 @unlink($antigo);
             }
         }
 
         if (!move_uploaded_file($file['tmp_name'], $destino)) {
-            throw new \RuntimeException('Falha ao salvar o arquivo no servidor.');
+            throw new \RuntimeException(
+                "Falha ao salvar o arquivo. Verifique se a pasta tem permissão de escrita: {$pastaAbs}"
+            );
         }
 
-        // Retorna path relativo à raiz (sem / inicial)
-        $raiz = str_replace('\\', '/', dirname(__DIR__, 2) . '/public');
-        $dest = str_replace('\\', '/', realpath($destino));
-        // O path salvo no banco é relativo a public/
-        return 'uploads/' . $prefixo . 's/' . $nomeArquivo;
+        // Retorna path relativo à public/ — sem barra inicial
+        // Ex: uploads/posts/post_1.jpg
+        return 'uploads/' . $subpasta . '/' . $nomeArquivo;
     }
 }

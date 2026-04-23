@@ -22,7 +22,10 @@ class NoticiaController
         $categorias   = Noticia::categorias();
         $podeEscrever = Auth::isJornalista();
 
-        View::render('noticias/index', compact('noticias', 'total', 'pagina', 'totalPaginas', 'categorias', 'categoria', 'busca', 'podeEscrever'));
+        View::render('noticias/index', compact(
+            'noticias', 'total', 'pagina', 'totalPaginas',
+            'categorias', 'categoria', 'busca', 'podeEscrever'
+        ));
     }
 
     // GET /noticias/{id}
@@ -45,14 +48,19 @@ class NoticiaController
         $usuarioCurtiu = Auth::check() ? Noticia::usuarioCurtiu($id, Auth::id()) : false;
         $corCat        = Noticia::categoriaCor($noticia['categoria']);
 
-        View::render('noticias/show', compact('noticia', 'comentarios', 'relacionadas', 'maisLidas', 'usuarioCurtiu', 'corCat'));
+        View::render('noticias/show', compact(
+            'noticia', 'comentarios', 'relacionadas',
+            'maisLidas', 'usuarioCurtiu', 'corCat'
+        ));
     }
 
     // GET /noticias/escrever
     public function form(): void
     {
         Auth::exigirLogin('/auth/login');
-        if (!Auth::isJornalista()) Router::redirect('/noticias?erro=' . urlencode('Apenas jornalistas podem publicar notícias.'));
+        if (!Auth::isJornalista()) {
+            Router::redirect('/noticias?erro=' . urlencode('Apenas jornalistas podem publicar notícias.'));
+        }
 
         $categorias = Noticia::categoriasValidas();
         View::render('noticias/form', compact('categorias'));
@@ -62,16 +70,24 @@ class NoticiaController
     public function criar(): void
     {
         Auth::exigirLogin('/auth/login');
-        if (!Auth::isJornalista()) Router::redirect('/noticias?erro=' . urlencode('Acesso negado.'));
+        if (!Auth::isJornalista()) {
+            Router::redirect('/noticias?erro=' . urlencode('Acesso negado.'));
+        }
 
         $titulo    = trim($_POST['titulo']    ?? '');
         $resumo    = trim($_POST['resumo']    ?? '');
         $conteudo  = trim($_POST['conteudo']  ?? '');
         $categoria = trim($_POST['categoria'] ?? '');
 
-        if (strlen($titulo) < 5)   Router::redirect('/noticias/escrever?erro=' . urlencode('Título muito curto.'));
-        if (strlen($resumo) < 10)  Router::redirect('/noticias/escrever?erro=' . urlencode('Resumo muito curto.'));
-        if (strlen($conteudo) < 50) Router::redirect('/noticias/escrever?erro=' . urlencode('Conteúdo muito curto.'));
+        if (strlen($titulo) < 5) {
+            Router::redirect('/noticias/escrever?erro=' . urlencode('Título muito curto.'));
+        }
+        if (strlen($resumo) < 10) {
+            Router::redirect('/noticias/escrever?erro=' . urlencode('Resumo muito curto.'));
+        }
+        if (strlen($conteudo) < 50) {
+            Router::redirect('/noticias/escrever?erro=' . urlencode('Conteúdo muito curto.'));
+        }
         if (!in_array($categoria, Noticia::categoriasValidas())) {
             Router::redirect('/noticias/escrever?erro=' . urlencode('Categoria inválida.'));
         }
@@ -86,8 +102,7 @@ class NoticiaController
                 ':usuario_id' => Auth::id(),
             ]);
 
-            $pasta  = dirname(__DIR__, 2) . '/public/uploads/noticias';
-            $imagem = Upload::salvar('imagem', 'noticia', $noticiaId, $pasta);
+            $imagem = Upload::salvar('imagem', 'noticia', $noticiaId, 'noticias');
             if ($imagem) Noticia::atualizarImagem($noticiaId, $imagem);
 
             Router::redirect('/noticias/' . $noticiaId . '?sucesso=1');
@@ -138,8 +153,8 @@ class NoticiaController
 
         try {
             $noticiaAtual = Noticia::buscarPorId($noticiaId);
-            $pasta        = dirname(__DIR__, 2) . '/public/uploads/noticias';
-            $imagem       = Upload::salvar('imagem', 'noticia', $noticiaId, $pasta) ?? $noticiaAtual['imagem'];
+            $imagem       = Upload::salvar('imagem', 'noticia', $noticiaId, 'noticias')
+                            ?? $noticiaAtual['imagem'];
 
             Noticia::editar($noticiaId, [
                 ':titulo'    => $titulo,
@@ -160,7 +175,9 @@ class NoticiaController
     {
         Auth::exigirLogin('/auth/login');
         $noticiaId = (int) ($_GET['id'] ?? 0);
-        if (!$noticiaId) Router::redirect('/painel?aba=noticias&erro=' . urlencode('Notícia inválida.'));
+        if (!$noticiaId) {
+            Router::redirect('/painel?aba=noticias&erro=' . urlencode('Notícia inválida.'));
+        }
 
         if (!Noticia::pertenceAo($noticiaId, Auth::id()) && !Auth::isAdm()) {
             Router::redirect('/painel?aba=noticias&erro=' . urlencode('Sem permissão.'));
@@ -169,7 +186,7 @@ class NoticiaController
         try {
             Noticia::deletar($noticiaId);
             Router::redirect('/painel?aba=noticias&sucesso=' . urlencode('Notícia deletada com sucesso.'));
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             Router::redirect('/painel?aba=noticias&erro=' . urlencode('Erro ao deletar a notícia.'));
         }
     }

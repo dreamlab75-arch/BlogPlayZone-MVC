@@ -17,12 +17,15 @@ class PostController
         $ordem      = $_GET['ordem']  ?? 'recentes';
         $limite     = 10;
 
-        $posts         = Post::paginados($pagina, $limite, $ordem, $busca, $tagsFiltro);
-        $total         = Post::contar($busca, $tagsFiltro);
-        $totalPaginas  = max(1, ceil($total / $limite));
-        $tags          = Tag::todas();
+        $posts        = Post::paginados($pagina, $limite, $ordem, $busca, $tagsFiltro);
+        $total        = Post::contar($busca, $tagsFiltro);
+        $totalPaginas = max(1, ceil($total / $limite));
+        $tags         = Tag::todas();
 
-        View::render('posts/index', compact('posts', 'total', 'pagina', 'totalPaginas', 'tags', 'busca', 'tagsFiltro', 'ordem'));
+        View::render('posts/index', compact(
+            'posts', 'total', 'pagina', 'totalPaginas',
+            'tags', 'busca', 'tagsFiltro', 'ordem'
+        ));
     }
 
     // GET /posts/{id}
@@ -36,11 +39,11 @@ class PostController
 
         if (Auth::check()) {
             Post::registrarVisualizacao($id, Auth::id());
-            $post = Post::buscarPorId($id); // recarrega com view contada
+            $post = Post::buscarPorId($id);
         }
 
-        $tags        = $post['tags'] ? explode(',', $post['tags']) : [];
-        $comentarios = Post::comentarios($id);
+        $tags          = $post['tags'] ? explode(',', $post['tags']) : [];
+        $comentarios   = Post::comentarios($id);
         $usuarioCurtiu = Auth::check() ? Post::usuarioCurtiu($id, Auth::id()) : false;
 
         View::render('posts/show', compact('post', 'tags', 'comentarios', 'usuarioCurtiu'));
@@ -63,10 +66,11 @@ class PostController
         }
 
         try {
+            // Insere sem imagem para ter o ID
             $postId = Post::criar($titulo, $conteudo, Auth::id());
 
-            $pasta  = dirname(__DIR__, 2) . '/public/uploads/posts';
-            $imagem = Upload::salvar('imagem', 'post', $postId, $pasta);
+            // Upload usando subpasta relativa
+            $imagem = Upload::salvar('imagem', 'post', $postId, 'posts');
             if ($imagem) Post::atualizarImagem($postId, $imagem);
 
             Post::sincronizarTags($postId, $tagIds);
@@ -118,8 +122,7 @@ class PostController
 
         try {
             $postAtual = Post::buscarPorId($postId);
-            $pasta     = dirname(__DIR__, 2) . '/public/uploads/posts';
-            $imagem    = Upload::salvar('imagem', 'post', $postId, $pasta) ?? $postAtual['imagem'];
+            $imagem    = Upload::salvar('imagem', 'post', $postId, 'posts') ?? $postAtual['imagem'];
 
             Post::editar($postId, $titulo, $conteudo, $imagem);
             Post::sincronizarTags($postId, $tagIds);
@@ -144,7 +147,7 @@ class PostController
         try {
             Post::deletar($postId);
             Router::redirect('/painel?sucesso=' . urlencode('Post deletado com sucesso.'));
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             Router::redirect('/painel?erro=' . urlencode('Erro ao deletar o post.'));
         }
     }

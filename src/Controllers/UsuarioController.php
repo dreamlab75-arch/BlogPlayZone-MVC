@@ -8,7 +8,6 @@ use App\Models\{Post, Noticia, Tag, Usuario};
 
 class UsuarioController
 {
-    // GET /painel
     public function index(): void
     {
         Auth::exigirLogin('/auth/login');
@@ -25,10 +24,11 @@ class UsuarioController
         $podeNoticias = Auth::isJornalista();
         $noticias     = $podeNoticias ? Noticia::doUsuario(Auth::id()) : [];
 
-        View::render('painel/index', compact('usuario', 'aba', 'posts', 'todasTags', 'podeNoticias', 'noticias'));
+        View::render('painel/index', compact(
+            'usuario', 'aba', 'posts', 'todasTags', 'podeNoticias', 'noticias'
+        ));
     }
 
-    // POST /painel/editar-conta
     public function editarConta(): void
     {
         Auth::exigirLogin('/auth/login');
@@ -49,8 +49,8 @@ class UsuarioController
 
         try {
             $atual  = Usuario::buscarPorId(Auth::id());
-            $pasta  = dirname(__DIR__, 2) . '/public/uploads/avatares';
-            $avatar = Upload::salvar('avatar', 'avatar', Auth::id(), $pasta) ?? $atual['avatar'];
+            $avatar = Upload::salvar('avatar', 'avatar', Auth::id(), 'avatares')
+                      ?? $atual['avatar'];
 
             Usuario::editar(Auth::id(), $nome, $email, $avatar, $bio ?: null);
             Auth::atualizarSessao(['nome' => $nome, 'avatar' => $avatar]);
@@ -61,7 +61,6 @@ class UsuarioController
         }
     }
 
-    // POST /painel/trocar-senha
     public function trocarSenha(): void
     {
         Auth::exigirLogin('/auth/login');
