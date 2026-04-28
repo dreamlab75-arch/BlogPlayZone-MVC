@@ -15,7 +15,7 @@ class AdminController
         $usuarios = Usuario::todos();
         $perfis   = Usuario::perfis();
 
-        View::render('admin/index', compact('usuarios', 'perfis'), true);
+        View::render('admin/index', compact('usuarios', 'perfis'), 'painel');
     }
 
     // POST /admin/adicionar-usuario

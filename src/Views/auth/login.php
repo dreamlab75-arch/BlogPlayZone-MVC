@@ -1,9 +1,9 @@
 <?php $titulo = 'Login'; ?>
-<div class="auth-body-wrap">
+
 <div class="auth-wrapper">
   <div class="auth-card">
     <div class="auth-logo">
-      <img src="/img/BlogLogo-01-01.svg" alt="PlayZone">
+      <a href="/"><img src="/img/BlogLogo-01-01.svg" alt="PlayZone"></a>
     </div>
     <h4 class="auth-titulo">Entrar</h4>
     <p class="auth-subtitulo">Bem-vindo de volta!</p>
@@ -18,7 +18,7 @@
     <form action="/auth/login" method="POST">
       <div class="mb-3">
         <label class="form-label">Usuário ou email</label>
-        <input type="text" name="login" class="form-control auth-input" placeholder="Usuário ou email" required>
+        <input type="text" name="login" class="form-control auth-input" placeholder="Usuário ou email" required autofocus>
       </div>
       <div class="mb-4">
         <label class="form-label">Senha</label>
@@ -29,5 +29,4 @@
 
     <p class="auth-link">Não tem conta? <a href="/auth/cadastro">Cadastre-se</a></p>
   </div>
-</div>
 </div>

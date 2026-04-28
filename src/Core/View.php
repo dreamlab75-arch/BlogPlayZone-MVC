@@ -12,13 +12,13 @@ class View
     }
 
     /**
-     * Renderiza uma view.
+     * Renderiza uma view dentro de um layout.
      *
-     * @param string $view    Ex: 'posts/index', 'painel/index'
-     * @param array  $data    Variáveis disponíveis na view
-     * @param bool   $semNav  Se true, usa layout sem navbar/footer (para painel e admin)
+     * @param string $view    Ex: 'posts/index', 'auth/login'
+     * @param array  $data    Variáveis disponíveis na view e no layout
+     * @param string $layout  'default' | 'painel' | 'auth'
      */
-    public static function render(string $view, array $data = [], bool $semNav = false): void
+    public static function render(string $view, array $data = [], string $layout = 'default'): void
     {
         if (empty(self::$viewsPath)) self::init();
 
@@ -34,11 +34,15 @@ class View
         $content = ob_get_clean();
 
         // Escolhe o layout
-        $layoutFile = $semNav ? 'layout-painel.php' : 'layout.php';
-        $layout = self::$viewsPath . '/shared/' . $layoutFile;
+        $layoutFile = match($layout) {
+            'painel' => 'layout-painel.php',
+            'auth'   => 'layout-auth.php',
+            default  => 'layout.php',
+        };
 
+        $layoutPath = self::$viewsPath . '/shared/' . $layoutFile;
         extract($data, EXTR_SKIP);
-        require $layout;
+        require $layoutPath;
     }
 
     public static function partial(string $partial, array $data = []): void

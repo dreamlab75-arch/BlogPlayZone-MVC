@@ -26,7 +26,7 @@ class UsuarioController
 
         View::render('painel/index', compact(
             'usuario', 'aba', 'posts', 'todasTags', 'podeNoticias', 'noticias'
-        ), true);
+        ), 'painel');
     }
 
     public function editarConta(): void

@@ -99,7 +99,7 @@ body {
 .sobre-card p { color: #666; line-height: 1.7; margin: 0; }
 .navbar-playzone { background: linear-gradient(135deg, rgba(97, 29, 242, 0.92) 0%, rgba(121, 87, 242, 0.92) 50%, rgba(179, 182, 242, 0.92) 100%) !important; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: background 0.3s, box-shadow 0.3s; }
 .navbar-playzone.scrolled { box-shadow: 0 4px 24px rgba(97, 29, 242, 0.25); }
-.auth-body { background-image: url('img/fundo_blog.jpg'); background-size: cover; background-position: center; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.auth-body { background-image: url('/img/fundo_blog.jpg'); background-size: cover; background-position: center; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
 .auth-wrapper { width: 100%; max-width: 420px; }
 .auth-card { background: white; border-radius: 20px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
 .auth-logo { text-align: center; margin-bottom: 24px; }

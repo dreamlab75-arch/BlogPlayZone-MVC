@@ -11,7 +11,7 @@ class AuthController
     public function loginForm(): void
     {
         if (Auth::check()) Router::redirect('/');
-        View::render('auth/login');
+        View::render('auth/login', [], 'auth');
     }
 
     public function login(): void
@@ -36,7 +36,7 @@ class AuthController
     public function cadastroForm(): void
     {
         if (Auth::check()) Router::redirect('/');
-        View::render('auth/cadastro');
+        View::render('auth/cadastro', [], 'auth');
     }
 
     public function cadastro(): void

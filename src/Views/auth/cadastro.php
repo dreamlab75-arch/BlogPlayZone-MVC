@@ -1,5 +1,4 @@
 <?php $titulo = 'Cadastro'; ?>
-<div class="auth-body-wrap">
 <div class="auth-wrapper">
   <div class="auth-card">
     <div class="auth-logo">
@@ -40,7 +39,6 @@
 
     <p class="auth-link">Já tem conta? <a href="/auth/login">Entrar</a></p>
   </div>
-</div>
 </div>
 <script>
 function previewAvatar(input) {
