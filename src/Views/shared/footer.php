@@ -31,14 +31,17 @@
       <div class="col-md-3 mb-3">
         <h5>Redes Sociais</h5>
         <div class="d-flex gap-3">
-          <a href="https://www.instagram.com/senactech/" target="_blank" class="social-icon text-white text-decoration-none">
-            <img src="/img/icones-05.svg" alt="Instagram">
+          <a href="https://www.instagram.com/senactech/" target="_blank"
+             class="social-icon text-white text-decoration-none" title="Instagram">
+            <i class="bi bi-instagram" style="font-size:1.4rem;"></i>
           </a>
-          <a href="https://github.com/dreamlab75-arch/BlogPlayZone-main-main" target="_blank" class="social-icon text-white text-decoration-none">
-            <img src="/img/git.svg" alt="GitHub">
+          <a href="https://github.com/dreamlab75-arch/BlogPlayZone-main-main" target="_blank"
+             class="social-icon text-white text-decoration-none" title="GitHub">
+            <i class="bi bi-github" style="font-size:1.4rem;"></i>
           </a>
-          <a href="https://www.linkedin.com/in/felipe-vitt-91728b23b" target="_blank" class="social-icon text-white text-decoration-none">
-            <img src="/img/icone_linkedin.svg" alt="LinkedIn">
+          <a href="https://www.linkedin.com/in/felipe-vitt-91728b23b" target="_blank"
+             class="social-icon text-white text-decoration-none" title="LinkedIn">
+            <i class="bi bi-linkedin" style="font-size:1.4rem;"></i>
           </a>
         </div>
       </div>

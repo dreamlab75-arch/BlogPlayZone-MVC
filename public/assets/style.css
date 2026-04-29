@@ -158,8 +158,7 @@ body {
 
 /* ========== POSTS-VIEW ========== */
 .posts-page-hero {
-  background: linear-gradient(135deg, #611DF2 0%, #7957F2 60%, #35F2DF 100%);
-  padding: 48px 0 36px;
+  background: linear-gradient(135deg, #1a0a4a 0%, #611DF2 60%, #35F2DF 100%);  padding: 48px 0 36px;
   margin-bottom: 36px;
   position: relative;
   overflow: hidden;

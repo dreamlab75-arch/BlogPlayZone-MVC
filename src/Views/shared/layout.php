@@ -12,11 +12,11 @@
     integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz"
     crossorigin="anonymous"></script>
 </head>
-<body>
+<body style="display:flex;flex-direction:column;min-height:100vh;">
 
 <?php require __DIR__ . '/header.php'; ?>
 
-<div id="page-content">
+<div id="page-content" style="flex:1;">
   <?= $content ?? '' ?>
 </div>
 
