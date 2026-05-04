@@ -165,7 +165,6 @@ class Noticia
         return $stmt->fetchAll();
     }
 
-    // ── Escrita ──────────────────────────────────────────────────────────────
 
     public static function criar(array $dados): int
     {
@@ -249,7 +248,6 @@ class Noticia
         ")->execute([':c' => $comentario, ':n' => $noticiaId, ':u' => $usuarioId]);
     }
 
-    // ── Helpers ──────────────────────────────────────────────────────────────
 
     public static function categoriaBadge(string $categoria): string
     {
@@ -290,4 +288,22 @@ class Noticia
         if ($busca)     { $where[] = '(n.titulo LIKE :busca OR n.resumo LIKE :busca)'; $params[':busca'] = "%{$busca}%"; }
         return [$where ? 'WHERE ' . implode(' AND ', $where) : '', $params];
     }
+        public static function todas(): array
+    {
+        $stmt = Database::get()->query("
+            SELECT n.*, u.nome AS autor_nome, u.avatar AS autor_avatar,
+                   COUNT(DISTINCT vn.usuario_id) AS visualizacoes,
+                   COUNT(DISTINCT cn.usuario_id) AS curtidas,
+                   COUNT(DISTINCT co.id)         AS comentarios
+            FROM noticias n
+            JOIN usuarios u ON u.id = n.usuario_id
+            LEFT JOIN Visualiza_noticia vn    ON vn.noticia_id = n.id
+            LEFT JOIN Curte_noticia cn        ON cn.noticia_id = n.id AND cn.ativo = 1
+            LEFT JOIN Comentarios_noticias co ON co.noticia_id = n.id
+            GROUP BY n.id ORDER BY n.data_publicacao DESC
+        ");
+        return $stmt->fetchAll();
+    }
+
 }
+

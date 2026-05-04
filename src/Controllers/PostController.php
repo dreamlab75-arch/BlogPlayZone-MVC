@@ -8,7 +8,6 @@ use App\Models\{Post, Tag};
 
 class PostController
 {
-    // GET /posts
     public function index(): void
     {
         $pagina     = max(1, (int) ($_GET['page']  ?? 1));
@@ -28,7 +27,6 @@ class PostController
         ));
     }
 
-    // GET /posts/{id}
     public function show(): void
     {
         $id = (int) ($_GET['id'] ?? 0);
@@ -49,7 +47,6 @@ class PostController
         View::render('posts/show', compact('post', 'tags', 'comentarios', 'usuarioCurtiu'));
     }
 
-    // POST /posts/criar
     public function criar(): void
     {
         Auth::exigirLogin('/auth/login');
@@ -66,10 +63,8 @@ class PostController
         }
 
         try {
-            // Insere sem imagem para ter o ID
             $postId = Post::criar($titulo, $conteudo, Auth::id());
 
-            // Upload usando subpasta relativa
             $imagem = Upload::salvar('imagem', 'post', $postId, 'posts');
             if ($imagem) Post::atualizarImagem($postId, $imagem);
 
@@ -81,7 +76,6 @@ class PostController
         }
     }
 
-    // POST /posts/curtir
     public function curtir(): void
     {
         Auth::exigirLogin('/auth/login');
@@ -90,7 +84,6 @@ class PostController
         Router::redirect('/posts/' . $id);
     }
 
-    // POST /posts/comentar
     public function comentar(): void
     {
         Auth::exigirLogin('/auth/login');
@@ -102,7 +95,6 @@ class PostController
         Router::redirect('/posts/' . $id);
     }
 
-    // POST /posts/editar
     public function editar(): void
     {
         Auth::exigirLogin('/auth/login');
@@ -133,7 +125,6 @@ class PostController
         }
     }
 
-    // GET /posts/deletar?id=X
     public function deletar(): void
     {
         Auth::exigirLogin('/auth/login');

@@ -19,7 +19,6 @@ function tempoPosts(string $data): string {
 }
 ?>
 
-<!-- CARROSSEL -->
 <?php if (!empty($slides)): ?>
 <section id="home" class="carousel-section">
   <div class="container">

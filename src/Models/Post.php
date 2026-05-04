@@ -7,7 +7,6 @@ use PDO;
 
 class Post
 {
-    // ── Leitura ──────────────────────────────────────────────────────────────
 
     public static function buscarPorId(int $id): ?array
     {
@@ -146,7 +145,6 @@ class Post
         return $stmt->fetchAll();
     }
 
-    // ── Escrita ──────────────────────────────────────────────────────────────
 
     public static function criar(string $titulo, string $conteudo, int $usuarioId, ?string $imagem = null): int
     {
@@ -201,7 +199,6 @@ class Post
         return $row && (int) $row['usuario_id'] === $usuarioId;
     }
 
-    // ── Curtidas / Comentários / Visualizações ───────────────────────────────
 
     public static function registrarVisualizacao(int $postId, int $usuarioId): void
     {
@@ -243,7 +240,6 @@ class Post
         ")->execute([':c' => $comentario, ':p' => $postId, ':u' => $usuarioId]);
     }
 
-    // ── Tags ─────────────────────────────────────────────────────────────────
 
     public static function sincronizarTags(int $postId, array $tagIds): void
     {
@@ -257,7 +253,6 @@ class Post
         }
     }
 
-    // ── Helpers internos ─────────────────────────────────────────────────────
 
     private static function montarWhere(string $busca, array $tags): array
     {
@@ -281,4 +276,30 @@ class Post
 
         return [$where ? 'WHERE ' . implode(' AND ', $where) : '', $params];
     }
+
+    public static function todos(): array
+    {
+        $stmt = Database::get()->query("
+            SELECT
+                p.id, p.titulo, p.conteudo, p.imagem, p.data_publicacao,
+                u.nome                          AS autor,
+                u.avatar                        AS avatar,
+                (SELECT GROUP_CONCAT(t2.nome, ',')
+                 FROM post_tag pt2
+                 JOIN tags t2 ON t2.id = pt2.tag_id
+                 WHERE pt2.post_id = p.id)      AS tags,
+                COUNT(DISTINCT cp.usuario_id)   AS curtidas,
+                COUNT(DISTINCT co.id)           AS comentarios,
+                COUNT(DISTINCT vp.usuario_id)   AS visualizacoes
+            FROM posts p
+            JOIN usuarios u         ON u.id = p.usuario_id
+            LEFT JOIN Curte_post cp ON cp.post_id = p.id AND cp.ativo = 1
+            LEFT JOIN Comentarios_posts co ON co.post_id = p.id
+            LEFT JOIN Visualiza_post vp ON vp.post_id = p.id
+            GROUP BY p.id
+            ORDER BY p.data_publicacao DESC
+        ");
+        return $stmt->fetchAll();
+    }
 }
+ 

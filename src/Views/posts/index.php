@@ -28,7 +28,6 @@ function qsPosts(string $busca, string $ordem, array $tags): string {
 $qs = qsPosts($busca, $ordem, $tagsFiltro);
 ?>
 
-<!-- HERO -->
 <div class="posts-page-hero">
   <div class="container d-flex align-items-center justify-content-between flex-wrap gap-3">
     <div>
@@ -54,7 +53,6 @@ $qs = qsPosts($busca, $ordem, $tagsFiltro);
     <div class="alert alert-danger"><?= htmlspecialchars($_GET['erro']) ?></div>
   <?php endif; ?>
 
-  <!-- FILTROS -->
   <form method="GET" action="/posts" id="formFiltro" class="filtro-bar">
     <div class="row g-2 align-items-center">
       <div class="col-md-4">
@@ -110,7 +108,6 @@ $qs = qsPosts($busca, $ordem, $tagsFiltro);
     · Página <strong><?= $pagina ?></strong> de <strong><?= $totalPaginas ?></strong>
   </div>
 
-  <!-- LISTA -->
   <?php if (empty($posts)): ?>
     <div class="empty-state">
       <i class="bi bi-controller"></i>
@@ -160,7 +157,6 @@ $qs = qsPosts($busca, $ordem, $tagsFiltro);
     <?php endforeach; ?>
   <?php endif; ?>
 
-  <!-- PAGINAÇÃO -->
   <?php if ($totalPaginas > 1): ?>
   <nav class="paginacao">
     <?php if ($pagina > 1): ?>
@@ -186,7 +182,6 @@ $qs = qsPosts($busca, $ordem, $tagsFiltro);
 </div>
 
 <?php if (Auth::check()): ?>
-<!-- MODAL CRIAR POST -->
 <?php $todasTags = \App\Models\Tag::todas(); ?>
 <div class="modal-criar-overlay" id="modalCriarOverlay" onclick="fecharModalFora(event)">
   <div class="modal-criar-box" id="modalCriarBox">
@@ -231,7 +226,6 @@ function abrirModalCriar() { document.getElementById('modalCriarOverlay').classL
 function fecharModal()      { document.getElementById('modalCriarOverlay').classList.remove('aberto'); }
 function fecharModalFora(e) { if (e.target === document.getElementById('modalCriarOverlay')) fecharModal(); }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') fecharModal(); });
-// Limite de 5 tags
 document.querySelectorAll('.tags-modal-grid input[type=checkbox]').forEach(cb => {
   cb.addEventListener('change', function() {
     const sel = document.querySelectorAll('.tags-modal-grid input:checked');

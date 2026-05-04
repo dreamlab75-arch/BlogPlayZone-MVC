@@ -1,6 +1,5 @@
 function calcularTempoRelativo(dataPublicacao) {
     const agora     = new Date();
-    // data_publicacao vem do SQLite em UTC — adiciona Z para o JS interpretar corretamente
     const publicado = new Date(dataPublicacao.replace(' ', 'T') + 'Z');
     const diffMs    = agora - publicado;
     const diffMin   = Math.floor(diffMs / 60000);

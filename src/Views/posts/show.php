@@ -72,7 +72,6 @@ function tempoPostShow(string $data): string {
         <?php endforeach; ?>
       </div>
 
-      <!-- AÇÕES -->
       <div class="post-acoes">
         <?php if (Auth::check()): ?>
           <form method="POST" action="/posts/curtir" style="display:inline;">
@@ -96,7 +95,6 @@ function tempoPostShow(string $data): string {
       </div>
     </article>
 
-    <!-- COMENTÁRIOS -->
     <section class="comentarios-section">
       <div class="comentarios-titulo">
         <i class="bi bi-chat-square-dots-fill" style="color:#611DF2;"></i>

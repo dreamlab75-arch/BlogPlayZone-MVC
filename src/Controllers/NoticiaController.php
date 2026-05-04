@@ -8,7 +8,6 @@ use App\Models\Noticia;
 
 class NoticiaController
 {
-    // GET /noticias
     public function index(): void
     {
         $pagina       = max(1, (int) ($_GET['page']      ?? 1));
@@ -28,7 +27,6 @@ class NoticiaController
         ));
     }
 
-    // GET /noticias/{id}
     public function show(): void
     {
         $id = (int) ($_GET['id'] ?? 0);
@@ -54,7 +52,6 @@ class NoticiaController
         ));
     }
 
-    // GET /noticias/escrever
     public function form(): void
     {
         Auth::exigirLogin('/auth/login');
@@ -66,7 +63,6 @@ class NoticiaController
         View::render('noticias/form', compact('categorias'));
     }
 
-    // POST /noticias/criar
     public function criar(): void
     {
         Auth::exigirLogin('/auth/login');
@@ -111,7 +107,6 @@ class NoticiaController
         }
     }
 
-    // POST /noticias/curtir
     public function curtir(): void
     {
         Auth::exigirLogin('/auth/login');
@@ -120,7 +115,6 @@ class NoticiaController
         Router::redirect('/noticias/' . $id);
     }
 
-    // POST /noticias/comentar
     public function comentar(): void
     {
         Auth::exigirLogin('/auth/login');
@@ -132,7 +126,6 @@ class NoticiaController
         Router::redirect('/noticias/' . $id);
     }
 
-    // POST /noticias/editar
     public function editar(): void
     {
         Auth::exigirLogin('/auth/login');
@@ -170,7 +163,6 @@ class NoticiaController
         }
     }
 
-    // GET /noticias/deletar?id=X
     public function deletar(): void
     {
         Auth::exigirLogin('/auth/login');

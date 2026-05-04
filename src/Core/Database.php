@@ -26,7 +26,6 @@ class Database
         return self::$instance;
     }
 
-    // Impede instanciação e clonagem
     private function __construct() {}
     private function __clone() {}
 }

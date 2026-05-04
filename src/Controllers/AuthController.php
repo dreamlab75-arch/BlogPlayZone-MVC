@@ -1,5 +1,4 @@
 <?php
-// AuthController.php
 namespace App\Controllers;
 
 use App\Core\{Auth, Router, View};

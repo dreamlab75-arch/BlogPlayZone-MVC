@@ -25,7 +25,6 @@ $cats = ['lançamento','rumor','análise','urgente','review','prévia','atualiza
 
 <div class="painel-layout">
 
-  <!-- SIDEBAR -->
   <aside class="painel-sidebar">
     <div class="painel-sidebar-perfil">
       <div class="painel-sidebar-avatar-wrap">
@@ -88,7 +87,6 @@ $cats = ['lançamento','rumor','análise','urgente','review','prévia','atualiza
     </div>
   </aside>
 
-  <!-- CONTEÚDO -->
   <main class="painel-main">
 
     <div class="adm-topbar">
@@ -105,7 +103,6 @@ $cats = ['lançamento','rumor','análise','urgente','review','prévia','atualiza
       <div class="alert alert-danger"><?= htmlspecialchars($_GET['erro']) ?></div>
     <?php endif; ?>
 
-    <!-- ABA: POSTS -->
     <?php if ($aba === 'posts'): ?>
       <?php if (empty($posts)): ?>
         <div class="painel-empty">
@@ -161,7 +158,6 @@ $cats = ['lançamento','rumor','análise','urgente','review','prévia','atualiza
         </div>
       <?php endif; ?>
 
-    <!-- ABA: NOTÍCIAS -->
     <?php elseif ($aba === 'noticias' && $podeNoticias): ?>
       <?php if (empty($noticias)): ?>
         <div class="painel-empty">
@@ -211,7 +207,6 @@ $cats = ['lançamento','rumor','análise','urgente','review','prévia','atualiza
         </div>
       <?php endif; ?>
 
-    <!-- ABA: CONTA -->
     <?php elseif ($aba === 'conta'): ?>
       <div class="adm-card" style="max-width:600px;">
         <form action="/painel/editar-conta" method="POST" enctype="multipart/form-data">
@@ -257,7 +252,6 @@ $cats = ['lançamento','rumor','análise','urgente','review','prévia','atualiza
   </main>
 </div>
 
-<!-- MODALS -->
 <div class="adm-modal-overlay" id="modalDeletar">
   <div class="adm-modal" style="max-width:420px;">
     <h5 class="fw-bold mb-2" style="color:#1a0a4a;">Deletar post?</h5>
@@ -368,7 +362,6 @@ $cats = ['lançamento','rumor','análise','urgente','review','prévia','atualiza
 </div>
 <?php endif; ?>
 
-<!-- MODAL TROCAR SENHA -->
 <div class="adm-modal-overlay" id="modalSenha">
   <div class="adm-modal" style="max-width:440px;">
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -413,7 +406,6 @@ $cats = ['lançamento','rumor','análise','urgente','review','prévia','atualiza
 <script>
 document.querySelectorAll('.alert').forEach(el => { setTimeout(() => { el.style.opacity='0'; setTimeout(()=>el.remove(),500); }, 3500); });
 
-// POSTS
 function confirmarDeletar(id, titulo) {
   document.getElementById('modalDeletarNome').textContent = 'Tem certeza que deseja deletar "' + titulo + '"?';
   document.getElementById('btnConfirmarDeletar').href = '/posts/deletar?id=' + id;
@@ -438,7 +430,6 @@ document.querySelectorAll('#editTagsGrid input[type=checkbox]').forEach(cb => {
 });
 
 <?php if ($podeNoticias): ?>
-// NOTÍCIAS
 function confirmarDeletarNoticia(id, titulo) {
   document.getElementById('modalDeletarNoticiaNome').textContent = 'Tem certeza que deseja deletar "' + titulo + '"?';
   document.getElementById('btnConfirmarDeletarNoticia').href = '/noticias/deletar?id=' + id;
@@ -461,7 +452,6 @@ function fecharEditarNoticia() { document.getElementById('modalEditarNoticia').s
 document.getElementById('modalEditarNoticia')?.addEventListener('click', e => { if(e.target===e.currentTarget) fecharEditarNoticia(); });
 <?php endif; ?>
 
-// SENHA
 function abrirModalSenha() {
   document.getElementById('formSenha').reset();
   document.getElementById('modalSenha').style.display = 'flex';

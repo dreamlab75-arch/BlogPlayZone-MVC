@@ -24,7 +24,6 @@ function tempoNoticia(string $data): string {
     return 'Agora mesmo';
 }
 
-// Botão voltar inteligente
 $voltarUrl = '/noticias';
 if (!empty($_SERVER['HTTP_REFERER'])) {
     $ref = $_SERVER['HTTP_REFERER'];
@@ -44,7 +43,6 @@ if (!empty($_SERVER['HTTP_REFERER'])) {
 
   <div class="row g-4">
 
-    <!-- ARTIGO -->
     <div class="col-lg-8">
       <article class="noticia-artigo">
 
@@ -111,7 +109,6 @@ if (!empty($_SERVER['HTTP_REFERER'])) {
           endforeach; ?>
         </div>
 
-        <!-- AÇÕES -->
         <div class="post-acoes">
           <?php if (Auth::check()): ?>
             <form method="POST" action="/noticias/curtir" style="display:inline;">
@@ -134,7 +131,6 @@ if (!empty($_SERVER['HTTP_REFERER'])) {
           <?php endif; ?>
         </div>
 
-        <!-- COMPARTILHAR -->
         <div class="noticia-compartilhar">
           <span class="noticia-compartilhar-label">Compartilhar:</span>
           <a href="https://twitter.com/intent/tweet?text=<?= urlencode($noticia['titulo']) ?>&url=<?= urlencode('http://'.$_SERVER['HTTP_HOST'].'/noticias/'.$noticia['id']) ?>"
@@ -153,7 +149,6 @@ if (!empty($_SERVER['HTTP_REFERER'])) {
 
       </article>
 
-      <!-- COMENTÁRIOS -->
       <section class="comentarios-section">
         <div class="comentarios-titulo">
           <i class="bi bi-chat-square-dots-fill" style="color:#611DF2;"></i>
@@ -192,7 +187,6 @@ if (!empty($_SERVER['HTTP_REFERER'])) {
         <?php endif; ?>
       </section>
 
-      <!-- RELACIONADAS -->
       <?php if (!empty($relacionadas)): ?>
       <section class="noticia-relacionadas">
         <h3 class="noticia-relacionadas-titulo">
@@ -220,9 +214,8 @@ if (!empty($_SERVER['HTTP_REFERER'])) {
       </section>
       <?php endif; ?>
 
-    </div><!-- /col-lg-8 -->
+    </div>
 
-    <!-- SIDEBAR -->
     <div class="col-lg-4">
       <div class="news-sidebar" style="top:90px;">
         <h4><i class="bi bi-fire me-2"></i>Mais Lidas</h4>

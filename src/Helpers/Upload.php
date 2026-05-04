@@ -44,15 +44,6 @@ class Upload
         return dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'public';
     }
 
-    /**
-     * Salva um arquivo de imagem enviado via $_FILES.
-     *
-     * @param  string $campo    Nome do campo em $_FILES
-     * @param  string $prefixo  Ex: 'post', 'noticia', 'avatar'
-     * @param  int    $id       ID do registro
-     * @param  string $subpasta Ex: 'posts', 'noticias', 'avatares'
-     * @return string|null      Path relativo salvo no banco (ex: uploads/posts/post_1.jpg)
-     */
     public static function salvar(string $campo, string $prefixo, int $id, string $subpasta): ?string
     {
         if (!isset($_FILES[$campo]) || $_FILES[$campo]['error'] === UPLOAD_ERR_NO_FILE) {
@@ -65,7 +56,6 @@ class Upload
             throw new \RuntimeException('Erro no upload (código ' . $file['error'] . ').');
         }
 
-        // Verifica MIME real
         $mimePermitidos = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
         $finfo = new \finfo(FILEINFO_MIME_TYPE);
         $mime  = $finfo->file($file['tmp_name']);
@@ -78,10 +68,8 @@ class Upload
         $ext         = $extensoes[$mime];
         $nomeArquivo = "{$prefixo}_{$id}.{$ext}";
 
-        // Pasta absoluta: public/uploads/posts/
         $pastaAbs = self::publicPath() . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . $subpasta;
 
-        // Cria a pasta se não existir
         if (!is_dir($pastaAbs)) {
             if (!mkdir($pastaAbs, 0755, true)) {
                 throw new \RuntimeException("Não foi possível criar a pasta de upload: {$pastaAbs}");
@@ -90,7 +78,6 @@ class Upload
 
         $destino = $pastaAbs . DIRECTORY_SEPARATOR . $nomeArquivo;
 
-        // Apaga versão anterior do mesmo ID (qualquer extensão)
         foreach ($extensoes as $e) {
             $antigo = $pastaAbs . DIRECTORY_SEPARATOR . "{$prefixo}_{$id}.{$e}";
             if (file_exists($antigo)) {
@@ -104,8 +91,6 @@ class Upload
             );
         }
 
-        // Retorna path relativo à public/ — sem barra inicial
-        // Ex: uploads/posts/post_1.jpg
         return 'uploads/' . $subpasta . '/' . $nomeArquivo;
     }
 }

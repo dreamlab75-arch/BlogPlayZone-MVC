@@ -5,7 +5,6 @@ function toggleAccountMenu() {
   chevron.classList.toggle('open');
 }
 
-// Fecha ao clicar fora
 document.addEventListener('click', function (e) {
   const dropdown = document.querySelector('.account-dropdown');
   if (dropdown && !dropdown.contains(e.target)) {
@@ -15,7 +14,6 @@ document.addEventListener('click', function (e) {
 });
 
 
-// Adiciona sombra no header quando a página scrollar
 window.addEventListener('scroll', function () {
   const navbar = document.querySelector('.navbar-playzone');
   if (navbar) {

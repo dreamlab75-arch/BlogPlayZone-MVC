@@ -14,7 +14,6 @@ function qsNoticias(string $categoria, string $busca): string {
 $qs = qsNoticias($categoria, $busca);
 ?>
 
-<!-- HERO -->
 <div class="noticias-hero">
   <div class="container d-flex align-items-center justify-content-between flex-wrap gap-3">
     <div>
@@ -41,10 +40,8 @@ $qs = qsNoticias($categoria, $busca);
 
   <div class="row g-4">
 
-    <!-- COLUNA PRINCIPAL -->
     <div class="col-lg-8">
 
-      <!-- FILTROS -->
       <form method="GET" action="/noticias" class="filtro-bar">
         <div class="row g-2 align-items-center">
           <div class="col-md-6">
@@ -91,14 +88,12 @@ $qs = qsNoticias($categoria, $busca);
         <?php endif; ?>
       </form>
 
-      <!-- RESULTADO -->
       <div class="resultado-info">
         <strong><?= $total ?></strong> notícia<?= $total!=1?'s':'' ?>
         <?= $categoria ? ' em <strong>'.htmlspecialchars(ucfirst($categoria)).'</strong>' : '' ?>
         · Página <strong><?= $pagina ?></strong> de <strong><?= $totalPaginas ?></strong>
       </div>
 
-      <!-- LISTA -->
       <?php if (empty($noticias)): ?>
         <div class="empty-state">
           <i class="bi bi-newspaper"></i>
@@ -143,7 +138,6 @@ $qs = qsNoticias($categoria, $busca);
         <?php endforeach; ?>
       <?php endif; ?>
 
-      <!-- PAGINAÇÃO -->
       <?php if ($totalPaginas > 1): ?>
       <nav class="paginacao">
         <?php if ($pagina > 1): ?>
@@ -163,9 +157,8 @@ $qs = qsNoticias($categoria, $busca);
       </nav>
       <?php endif; ?>
 
-    </div><!-- /col-lg-8 -->
+    </div>
 
-    <!-- SIDEBAR -->
     <div class="col-lg-4">
       <div class="news-sidebar" style="top:90px;">
         <h4><i class="bi bi-fire me-2"></i>Mais Lidas</h4>

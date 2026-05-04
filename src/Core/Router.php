@@ -6,7 +6,6 @@ class Router
 {
     private array $routes = [];
 
-    // ── Registro de rotas ────────────────────────────────────────────────────
 
     public function get(string $path, array $handler): void
     {
@@ -18,32 +17,26 @@ class Router
         $this->routes['POST'][$path] = $handler;
     }
 
-    // ── Resolução ────────────────────────────────────────────────────────────
 
     public function dispatch(string $method, string $uri): void
     {
-        // Remove query string da URI
         $path = strtok($uri, '?');
-        // Remove barra final (exceto raiz)
         $path = ($path !== '/') ? rtrim($path, '/') : $path;
 
         $routes = $this->routes[$method] ?? [];
 
-        // Correspondência exata
         if (isset($routes[$path])) {
             $this->call($routes[$path]);
             return;
         }
 
-        // Correspondência com parâmetros (ex: /posts/{id})
         foreach ($routes as $route => $handler) {
             $pattern = preg_replace('/\{[^}]+\}/', '([^/]+)', $route);
             $pattern = '#^' . $pattern . '$#';
 
             if (preg_match($pattern, $path, $matches)) {
-                array_shift($matches); // remove full match
+                array_shift($matches); 
 
-                // Extrai nomes dos parâmetros
                 preg_match_all('/\{([^}]+)\}/', $route, $paramNames);
                 foreach ($paramNames[1] as $i => $name) {
                     $_GET[$name] = $matches[$i];
@@ -54,7 +47,6 @@ class Router
             }
         }
 
-        // 404
         http_response_code(404);
         View::render('pages/404');
     }
@@ -77,8 +69,6 @@ class Router
 
         $controller->$method();
     }
-
-    // ── Utilitários estáticos ────────────────────────────────────────────────
 
     public static function redirect(string $url, int $code = 303): never
     {
