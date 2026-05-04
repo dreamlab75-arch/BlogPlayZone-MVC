@@ -53,8 +53,12 @@ function tempoPostShow(string $data): string {
                 <?= tempoPostShow($post['data_publicacao']) ?>
               </span>
             </span>
-            <span><i class="bi bi-eye"></i> <?= $post['visualizacoes'] ?> visualizações</span>
-            <span><i class="bi bi-heart"></i> <?= $post['curtidas'] ?> curtidas</span>
+            <span class="noticia-meta-sep">·</span>
+          <span><i class="bi bi-eye me-1"></i><?= $post['visualizacoes'] ?> views</span>
+          <span class="noticia-meta-sep">·</span>
+          <span><i class="bi bi-heart me-1"></i><?= $post['curtidas'] ?> curtidas</span>
+          <span class="noticia-meta-sep">·</span>
+          <span><i class="bi bi-chat-dots me-1"></i><?= $post['comentarios'] ?> comentários</span>
           </small>
         </div>
       </div>

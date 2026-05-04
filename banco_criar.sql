@@ -2,8 +2,10 @@
 .mode column
 
 DROP TABLE IF EXISTS post_tag;
-DROP TABLE IF EXISTS Visualiza;
-DROP TABLE IF EXISTS Curte;
+DROP TABLE IF EXISTS Visualiza_noticia;
+DROP TABLE IF EXISTS Visualiza_post;
+DROP TABLE IF EXISTS Curte_post;
+DROP TABLE IF EXISTS Curte_noticia;
 DROP TABLE IF EXISTS Comentarios_posts;
 DROP TABLE IF EXISTS Comentarios_noticias;
 DROP TABLE IF EXISTS tags;
@@ -11,6 +13,7 @@ DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS noticias;
 DROP TABLE IF EXISTS usuarios;
 DROP TABLE IF EXISTS perfil;
+
 
 CREATE TABLE perfil (
     id   INTEGER PRIMARY KEY,

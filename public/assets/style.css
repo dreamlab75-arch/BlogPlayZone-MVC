@@ -1775,7 +1775,7 @@ body {
 .painel-post-acoes {
   display: flex;
   border-top: 1px solid #f5f3ff;
-  margin-top: auto;
+  margin-top: 0;
 }
 .painel-btn-ver,
 .painel-btn-editar,

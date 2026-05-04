@@ -65,8 +65,6 @@ if (!empty($_SERVER['HTTP_REFERER'])) {
         <div class="noticia-meta-data">
           <span><i class="bi bi-calendar3 me-1"></i><?= formatarDataNoticia($noticia['data_publicacao']) ?></span>
           <span class="noticia-meta-sep">·</span>
-          <span class="tempo-relativo" data-publicacao="<?= $noticia['data_publicacao'] ?>"><?= tempoNoticia($noticia['data_publicacao']) ?></span>
-          <span class="noticia-meta-sep">·</span>
           <span><i class="bi bi-eye me-1"></i><?= $noticia['visualizacoes'] ?> views</span>
           <span class="noticia-meta-sep">·</span>
           <span><i class="bi bi-heart me-1"></i><?= $noticia['curtidas'] ?> curtidas</span>

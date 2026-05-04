@@ -176,9 +176,9 @@ function tempoAdm(string $data): string {
   <?= htmlspecialchars($noticia['autor_nome']) ?>
 </div>
         <div class="painel-post-stats">
-          <span><i class="bi bi-eye-fill" style="color:#611DF2;"></i> <?= $noticia['visualizacoes'] ?></span>
           <span><i class="bi bi-heart-fill" style="color:#e74c3c;"></i> <?= $noticia['curtidas'] ?></span>
           <span><i class="bi bi-chat-fill" style="color:#611DF2;"></i> <?= $noticia['comentarios'] ?></span>
+          <span><i class="bi bi-eye-fill" style="color:#611DF2;"></i> <?= $noticia['visualizacoes'] ?></span>
         </div>
         <div class="painel-post-data">
           <i class="bi bi-clock"></i>

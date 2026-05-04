@@ -93,7 +93,6 @@ $cats = ['lançamento','rumor','análise','urgente','review','prévia','atualiza
       <h4 class="adm-page-titulo">
         <?= match($aba) { 'conta' => 'Editar Conta', 'noticias' => 'Minhas Notícias', default => 'Meus Posts' } ?>
       </h4>
-      <span class="adm-usuario-logado"><i class="bi bi-person-circle"></i> <?= htmlspecialchars($usuario['nome']) ?></span>
     </div>
 
     <?php if (isset($_GET['sucesso'])): ?>
