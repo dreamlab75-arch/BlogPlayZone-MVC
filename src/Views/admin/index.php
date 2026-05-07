@@ -51,7 +51,6 @@ function tempoAdm(string $data): string {
       <h4 class="adm-page-titulo">
         <?= match($aba) { 'posts' => 'Todos os Posts', 'noticias' => 'Todas as Notícias', default => 'Usuários' } ?>
       </h4>
-      <span class="adm-usuario-logado"><i class="bi bi-person-circle"></i> <?= htmlspecialchars(Auth::nome()) ?></span>
     </div>
 
     <?php if (isset($_GET['sucesso'])): ?>

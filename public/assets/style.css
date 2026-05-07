@@ -320,6 +320,8 @@ body {
   padding: 12px 40px;
   font-weight: bold;
   transition: all 0.3s;
+  color: white;
+  
 }
 .btn-ver-mais:hover {
   background: linear-gradient(135deg, #7957f2 0%, #b3b6f2 100%);
