@@ -2,6 +2,7 @@
 use App\Core\Auth;
 use App\Helpers\Upload;
 ?>
+
 <nav class="navbar navbar-expand-lg navbar-playzone fixed-top">
   <div class="container">
 

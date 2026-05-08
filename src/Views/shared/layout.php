@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?= htmlspecialchars($titulo ?? 'PlayZone') ?> — PlayZone</title>
+
+    <link rel="icon" type="image/svg+xml" href="/img/BlogLogo_Controle.svg">
+  <title><?= htmlspecialchars($titulo ?? 'PlayZone') ?> — Blog de Video Games</title>
   <link href="/assets/style.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">

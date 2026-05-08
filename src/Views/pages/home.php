@@ -1,8 +1,8 @@
+
 <?php
 use App\Helpers\Upload;
 use App\Models\Noticia;
 
-$titulo = 'PlayZone — Blog de Videogames';
 
 function tempoPosts(string $data): string {
     $agora = new DateTime('now', new DateTimeZone('UTC'));
