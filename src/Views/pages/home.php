@@ -114,7 +114,9 @@ function tempoPosts(string $data): string {
   </div>
 </div>
 
-<section id="about" class="sobre-section">
+<section id="about" style="background: linear-gradient(135deg, #1a0a4a 0%, #611df2 50%, #7957f2 100%);
+  padding: 60px 0;
+  margin-top: 60px;">
   <div class="container">
     <h2 class="section-title section-title--light">Sobre o PlayZone</h2>
     <div class="row g-4">

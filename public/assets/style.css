@@ -507,7 +507,6 @@ body {
 .sobre-section {
   background: linear-gradient(135deg, #1a0a4a 0%, #611df2 50%, #7957f2 100%);
   padding: 60px 0;
-  margin-top: 60px;
 }
 .sobre-section .section-title--light {
   color: white;
@@ -2622,3 +2621,5 @@ body {
     font-size: 1.6rem;
   }
 }
+
+

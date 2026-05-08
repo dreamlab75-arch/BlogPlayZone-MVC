@@ -1,6 +1,6 @@
 <?php $titulo = 'Quem Somos'; ?>
 
-<div class="sobre-section" style="margin-top:72px;">
+<div class="sobre-section">
   <div class="container text-center py-2">
     <h1 class="section-title--light fw-bold mb-2" style="color:#fff;font-size:2.4rem;">
       <i class="bi bi-controller me-2"></i>Quem Somos

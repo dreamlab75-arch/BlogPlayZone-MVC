@@ -1,6 +1,6 @@
 <?php $titulo = 'Política de Privacidade'; ?>
 
-<div class="sobre-section" style="margin-top:72px;">
+<div class="sobre-section">
   <div class="container text-center py-2">
     <h1 class="section-title--light fw-bold mb-2" style="color:#fff;font-size:2.4rem;">
       <i class="bi bi-shield-check me-2"></i>Política de Privacidade
