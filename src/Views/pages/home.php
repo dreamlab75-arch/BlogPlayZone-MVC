@@ -118,7 +118,7 @@ function tempoPosts(string $data): string {
   padding: 60px 0;
   margin-top: 60px;">
   <div class="container">
-    <h2 class="section-title section-title--light">Sobre o PlayZone</h2>
+    <h2 class="section-title section-title--light" style="color: white">Sobre o PlayZone</h2>
     <div class="row g-4">
       <div class="col-md-4"><div class="sobre-card"><div class="sobre-icon">🎮</div><h5>O que é o PlayZone</h5><p>Um blog criado por gamers para gamers. Aqui você encontra opiniões honestas, análises aprofundadas e as últimas notícias do mundo dos videogames.</p></div></div>
       <div class="col-md-4"><div class="sobre-card"><div class="sobre-icon">📰</div><h5>O que você encontra aqui</h5><p>Posts sobre RPGs, FPS, hardware, e-sports e muito mais. Nossos destaques são selecionados pelo que a comunidade mais lê e discute.</p></div></div>
