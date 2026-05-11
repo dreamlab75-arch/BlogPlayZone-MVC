@@ -104,11 +104,13 @@ $cats = ['lançamento','rumor','análise','urgente','review','prévia','atualiza
 
     <?php if ($aba === 'posts'): ?>
       <?php if (empty($posts)): ?>
-        <div class="painel-empty">
-          <i class="bi bi-pencil-square"></i>
-          <p>Você ainda não publicou nenhum post.</p>
-          <a href="/posts" class="btn-modal-publicar mt-3"><i class="bi bi-plus-circle me-1"></i> Criar meu primeiro post</a>
-        </div>
+        <div class="painel-empty flex flex-column align-items-center">
+   <p class="mb-3">Você ainda não escreveu nenhuma post.</p>
+
+    <a href="/posts" class="bi bi-plus-circle me-1, btn-modal-publicar">
+        Escrever post
+    </a>
+</div>
       <?php else: ?>
         <div class="painel-posts-header">
           <p class="resultado-info mb-0"><strong><?= count($posts) ?></strong> post<?= count($posts)!=1?'s':'' ?> publicado<?= count($posts)!=1?'s':'' ?></p>
@@ -159,11 +161,13 @@ $cats = ['lançamento','rumor','análise','urgente','review','prévia','atualiza
 
     <?php elseif ($aba === 'noticias' && $podeNoticias): ?>
       <?php if (empty($noticias)): ?>
-        <div class="painel-empty">
-          <i class="bi bi-newspaper"></i>
-          <p>Você ainda não publicou nenhuma notícia.</p>
-          <a href="/noticias/escrever" class="btn-modal-publicar mt-3"><i class="bi bi-plus-circle me-1"></i> Escrever notícia</a>
-        </div>
+        <div class="painel-empty flex flex-column align-items-center">
+   <p class="mb-3">Você ainda não publicou nenhuma notícia.</p>
+
+    <a href="/noticias/escrever" class="bi bi-plus-circle me-1, btn-modal-publicar">
+        Escrever notícia
+    </a>
+</div>
       <?php else: ?>
         <div class="painel-posts-header">
           <p class="resultado-info mb-0"><strong><?= count($noticias) ?></strong> notícia<?= count($noticias)!=1?'s':'' ?> publicada<?= count($noticias)!=1?'s':'' ?></p>
