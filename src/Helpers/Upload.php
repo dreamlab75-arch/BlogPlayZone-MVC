@@ -4,10 +4,7 @@ namespace App\Helpers;
 
 class Upload
 {
-    /**
-     * Converte path salvo no banco em URL absoluta para o browser.
-     * Paths locais recebem '/' na frente; URLs externas passam direto.
-     */
+
     public static function url(string $imagem, string $fallback = ''): string
     {
         if (empty(trim($imagem))) {
@@ -21,9 +18,7 @@ class Upload
         return '/' . ltrim(str_replace('\\', '/', $imagem), '/');
     }
 
-    /**
-     * Retorna atributo onerror HTML seguro (sem loop infinito).
-     */
+
     public static function onerror(string $fallback = ''): string
     {
         if (empty($fallback)) {
@@ -33,14 +28,10 @@ class Upload
         return "onerror=\"this.onerror=null;this.src='" . htmlspecialchars($fb, ENT_QUOTES) . "';\"";
     }
 
-    /**
-     * Retorna o caminho absoluto da pasta public/ do projeto.
-     * Funciona independente de onde o script está sendo chamado.
-     */
+
     public static function publicPath(): string
     {
-        // __DIR__ = src/Helpers/
-        // sobe 2 níveis: src/ -> raiz do projeto -> entra em public/
+
         return dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'public';
     }
 

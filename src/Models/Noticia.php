@@ -254,7 +254,7 @@ class Noticia
         $mapa = [
             'lançamento' => 'bg-primary text-white',  'rumor'       => 'bg-warning text-dark',
             'análise'    => 'bg-info text-white',      'urgente'     => 'bg-danger text-white',
-            'review'     => 'bg-success text-white',   'prévia'      => 'bg-purple text-white',
+            'review'     => 'bg-success text-white',   'prévia'      => 'bg-warning text-white',
             'atualização'=> 'bg-secondary text-white', 'evento'      => 'bg-dark text-white',
             'hardware'   => 'bg-warning text-dark',    'negócios'    => 'bg-danger text-white',
             'curiosidade'=> 'bg-info text-white',      'lista'       => 'bg-primary text-white',
