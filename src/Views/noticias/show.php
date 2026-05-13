@@ -129,21 +129,6 @@ if (!empty($_SERVER['HTTP_REFERER'])) {
           <?php endif; ?>
         </div>
 
-        <div class="noticia-compartilhar">
-          <span class="noticia-compartilhar-label">Compartilhar:</span>
-          <a href="https://twitter.com/intent/tweet?text=<?= urlencode($noticia['titulo']) ?>&url=<?= urlencode('http://'.$_SERVER['HTTP_HOST'].'/noticias/'.$noticia['id']) ?>"
-             target="_blank" class="noticia-share-btn noticia-share-x" title="X">
-            <i class="bi bi-twitter-x"></i>
-          </a>
-          <a href="https://wa.me/?text=<?= urlencode($noticia['titulo'].' - http://'.$_SERVER['HTTP_HOST'].'/noticias/'.$noticia['id']) ?>"
-             target="_blank" class="noticia-share-btn noticia-share-wa" title="WhatsApp">
-            <i class="bi bi-whatsapp"></i>
-          </a>
-          <button onclick="navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copiado!'))"
-                  class="noticia-share-btn noticia-share-copy" title="Copiar link">
-            <i class="bi bi-link-45deg"></i>
-          </button>
-        </div>
 
       </article>
 
